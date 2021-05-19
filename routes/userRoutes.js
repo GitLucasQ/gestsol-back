@@ -38,4 +38,33 @@ router.post('/registroConsulta', (req, res) => {
         });
 });
 
+router.post('/registroUsuario', (req, res) => {
+    const nombres = req.body.nombres
+    const apellidos = req.body.apellidos
+    const area = req.body.area
+    const tipo = req.body.tipo
+
+    userModel.registroUsuario(nombres, apellidos, area, tipo)
+        .then(registro => {
+            res.json({
+                status: 200
+            })
+        })
+        .catch(err => {
+            return res.status(500).send("Error obteniendo usuario");
+        });
+});
+
+router.get('/listarUsuarios', (req, res) => {
+    userModel.listarUsuarios()
+        .then(usuarios => {
+            res.json({
+                usuarios: usuarios
+            })
+        })
+        .catch(err => {
+            return res.status(500).send("Error obteniendo usuarios");
+        })
+})
+
 module.exports = router;
