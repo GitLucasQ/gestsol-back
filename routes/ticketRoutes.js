@@ -7,7 +7,6 @@ router.get('/ticket/listTickets', (req, res) => {
     ticketModel.listTickets()
         .then(tickets => {
             res.json({
-                status: '200',
                 tickets: tickets
             });
         })
@@ -15,6 +14,7 @@ router.get('/ticket/listTickets', (req, res) => {
             return res.status(500).send("Error obteniendo tickets");
         })
 });
+
 
 
 module.exports = router;

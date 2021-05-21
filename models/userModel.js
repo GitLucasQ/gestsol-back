@@ -37,7 +37,7 @@ module.exports = {
 
     listarUsuarios() {
         return new Promise((resolve, reject) => {
-            connection.query('select nombres, apellidos, area, b.tipo_usuario from usuario a inner join tipo_usuario b on a.tipo_usuario = b.id_tipo_usuario',
+            connection.query('select nombres, apellidos, area, b.tipo_usuario from usuario a inner join tipo_usuario b on a.tipo_usuario = b.id_tipo_usuario where a.tipo_usuario not in (1,2)',
                 [],
                 (err, result) => {
                     if (err) reject(err), console.log(err)
