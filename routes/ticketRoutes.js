@@ -3,8 +3,9 @@ const router = express.Router()
 
 const ticketModel = require('../models/ticketModel')
 
-router.get('/ticket/listTickets', (req, res) => {
-    ticketModel.listTickets()
+router.post('/ticket/listTickets', (req, res) => {
+    const id_usuario = req.body.id_usuario
+    ticketModel.listTickets(id_usuario)
         .then(tickets => {
             res.json({
                 tickets: tickets
