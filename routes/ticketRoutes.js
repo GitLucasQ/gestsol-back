@@ -16,6 +16,15 @@ router.post('/ticket/listTickets', (req, res) => {
         })
 });
 
+router.put('/ticket/reasignarTicket', (req, res) => {
+    const id_usuario_asignado = req.body.id_usuario_asignado
+    const nro_ticket = req.body.nro_ticket
+    ticketModel.reasignarTicket(id_usuario_asignado, nro_ticket)
+        .catch(err => {
+            return res.status(500).send("Error actualizando ticket");
+        })
+})
+
 
 
 module.exports = router;

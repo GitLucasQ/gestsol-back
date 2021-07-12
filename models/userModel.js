@@ -35,10 +35,13 @@ module.exports = {
         })
     },
 
-    listarUsuarios() {
+    listarUsuarios(idUsuario) {
         return new Promise((resolve, reject) => {
-            connection.query('select nombres, apellidos, area, b.tipo_usuario from usuario a inner join tipo_usuario b on a.tipo_usuario = b.id_tipo_usuario where a.tipo_usuario not in (1,2)',
-                [],
+            connection.query('select a.id_usuario, nombres, apellidos, area, b.tipo_usuario from usuario a \
+            inner join tipo_usuario b on a.tipo_usuario = b.id_tipo_usuario \
+            where a.tipo_usuario not in (1,2) and \
+            a.area = (select distinct area from usuario where tipo_usuario = ?);',
+                [idUsuario],
                 (err, result) => {
                     if (err) reject(err), console.log(err)
                     else resolve(result)

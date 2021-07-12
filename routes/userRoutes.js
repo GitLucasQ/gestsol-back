@@ -55,8 +55,9 @@ router.post('/registroUsuario', (req, res) => {
         });
 });
 
-router.get('/listarUsuarios', (req, res) => {
-    userModel.listarUsuarios()
+router.post('/listarUsuarios', (req, res) => {
+    const idUsuario = req.body.idUsuario
+    userModel.listarUsuarios(idUsuario)
         .then(usuarios => {
             res.json({
                 usuarios: usuarios
