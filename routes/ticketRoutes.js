@@ -23,6 +23,19 @@ router.put('/ticket/reasignarTicket', (req, res) => {
         .catch(err => {
             return res.status(500).send("Error actualizando ticket");
         })
+});
+
+router.post('/ticket/ticketsPorUsuario', (req, res) => {
+    const id_usuario = req.body.id_usuario
+    ticketModel.ticketsPorUsuario(id_usuario)
+        .then(resultado => {
+            res.json({
+                resultado: resultado
+            });
+        })
+        .catch(err => {
+            return res.status(500).send("Error obteniendo resultado");
+        })
 })
 
 
