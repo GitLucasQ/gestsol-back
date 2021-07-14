@@ -43,5 +43,37 @@ module.exports = {
                     else resolve(result)
                 })
         })
+    },
+
+    promedioAbordaje(id_usuario) {
+        return new Promise((resolve, reject) => {
+            connection.query("select a.NOMBRE_USUARIO_ABORDAJE as persona, avg(a.TIEMPO_ABORDAJE) as promedio_abordaje \
+            from gestsol.seguimiento a \
+            inner join gestsol.usuario b \
+            on a.id_usuario_asignado = b.id_usuario \
+            where b.area = (select distinct area from usuario where tipo_usuario = ?) \
+            group by NOMBRE_USUARIO_ASIGNADO;",
+                [id_usuario],
+                (err, result) => {
+                    if (err) reject(err), console.log(err)
+                    else resolve(result)
+                })
+        })
+    },
+
+    promedioFinalizacion(id_usuario) {
+        return new Promise((resolve, reject) => {
+            connection.query("select a.NOMBRE_USUARIO_ABORDAJE as persona, avg(a.TIEMPO_FINALIZACION) as promedio_finalizacion \
+            from gestsol.seguimiento a \
+            inner join gestsol.usuario b \
+            on a.id_usuario_asignado = b.id_usuario \
+            where b.area = (select distinct area from usuario where tipo_usuario = ?) \
+            group by NOMBRE_USUARIO_ASIGNADO;",
+                [id_usuario],
+                (err, result) => {
+                    if (err) reject(err), console.log(err)
+                    else resolve(result)
+                })
+        })
     }
 }

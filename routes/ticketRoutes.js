@@ -36,6 +36,32 @@ router.post('/ticket/ticketsPorUsuario', (req, res) => {
         .catch(err => {
             return res.status(500).send("Error obteniendo resultado");
         })
+});
+
+router.post('/ticket/promedioAbordaje', (req, res) => {
+    const id_usuario = req.body.id_usuario
+    ticketModel.promedioAbordaje(id_usuario)
+        .then(promedio => {
+            res.json({
+                promedio: promedio
+            });
+        })
+        .catch(err => {
+            return res.status(500).send("Error obteniendo datos");
+        })
+});
+
+router.post('/ticket/promedioFinalizacion', (req, res) => {
+    const id_usuario = req.body.id_usuario
+    ticketModel.promedioFinalizacion(id_usuario)
+        .then(promedio => {
+            res.json({
+                promedio: promedio
+            });
+        })
+        .catch(err => {
+            return res.status(500).send("Error obteniendo datos");
+        })
 })
 
 
