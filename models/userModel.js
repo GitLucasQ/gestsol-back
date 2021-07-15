@@ -3,7 +3,7 @@ const connection = require('../conecction/connection')
 module.exports = {
     login(username, password) {
         return new Promise((resolve, reject) => {
-            connection.query('select * from usuario where username = ? and `password` = ?;',
+            connection.query('select * from usuario where username = ? and `password` = sha1(?);',
                 [username, password],
                 (err, result) => {
                     if (err) reject(err), console.log(err)
@@ -23,11 +23,11 @@ module.exports = {
         });
     },
 
-    registroUsuario(nombres, apellidos, area, tipo) {
+    registroUsuario(nombres, apellidos, area, clave, tipo) {
         return new Promise((resolve, reject) => {
-            connection.query('insert into USUARIO (NOMBRES, APELLIDOS, AREA, USERNAME, PASSWORD, ACTIVO, TIPO_USUARIO) values (?,?,?,?,?,?,?)',
+            connection.query('insert into USUARIO (NOMBRES, APELLIDOS, AREA, USERNAME, PASSWORD, ACTIVO, TIPO_USUARIO) values (?,?,?,?,sha1(?),?,?)',
                 [nombres, apellidos, area, nombres.substring(0, 2) + apellidos.substring(0, 2),
-                    Math.floor(Math.random() * (9999 - 1111) + 1111) + 1111, 1, tipo],
+                    clave, 1, tipo],
                 (err, result) => {
                     if (err) reject(err), console.log(err)
                     else resolve(result)

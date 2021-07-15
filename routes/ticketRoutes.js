@@ -62,6 +62,19 @@ router.post('/ticket/promedioFinalizacion', (req, res) => {
         .catch(err => {
             return res.status(500).send("Error obteniendo datos");
         })
+});
+
+router.post('/ticket/listaTicketsAsesor', (req, res) => {
+    const id_usuario = req.body.id_usuario
+    ticketModel.listaTicketsAsesor(id_usuario)
+        .then(tickets => {
+            res.json({
+                tickets: tickets
+            });
+        })
+        .catch(err => {
+            return res.status(500).send("Error obteniendo tickets");
+        })
 })
 
 

@@ -43,8 +43,9 @@ router.post('/registroUsuario', (req, res) => {
     const apellidos = req.body.apellidos
     const area = req.body.area
     const tipo = req.body.tipo
+    const clave = req.body.clave
 
-    userModel.registroUsuario(nombres, apellidos, area, tipo)
+    userModel.registroUsuario(nombres, apellidos, area, clave, tipo)
         .then(registro => {
             res.json({
                 status: 200
